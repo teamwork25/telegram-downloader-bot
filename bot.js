@@ -74,24 +74,3 @@ bot.on("message", async (msg) => {
     bot.sendMessage(chatId, "Error downloading video. Please try again.");
   }
 });
-    } else if (text.includes("instagram.com")) {
-      bot.sendMessage(chatId, "Downloading Instagram video...");
-
-      // Free Instagram downloader API
-      const res = await axios.get(
-        `https://api.sosmods.com/v1/instagram?url=${text}`,
-        { responseType: "arraybuffer" }
-      );
-      fs.writeFileSync("insta.mp4", res.data);
-
-      await bot.sendVideo(chatId, fs.createReadStream("insta.mp4"));
-      fs.unlinkSync("insta.mp4");
-
-    } else {
-      bot.sendMessage(chatId, "Unsupported link.");
-    }
-  } catch (err) {
-    console.error(err);
-    bot.sendMessage(chatId, "Error downloading video.");
-  }
-});
